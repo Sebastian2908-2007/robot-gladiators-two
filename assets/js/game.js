@@ -1,8 +1,17 @@
 
 
 var fight = function(enemy) {
+    // keep track of who goes first
+    debugger;
+    var isPlayerTurn = true;
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+        console.log(isPlayerTurn);
+    }
   
     while(playerInfo.health > 0 && enemy.health > 0) { 
+        if (isPlayerTurn) { 
+            console.log(isPlayerTurn);
     // Alert players they are starting a round
    if(fightOrSkip()) {
        // if true , leave fight by breaking loop
@@ -25,12 +34,13 @@ console.log(
 
         //award player money for winning
         playerInfo.money = playerInfo.money + 20
-        //console.log(playerMoney);
+       
         break;
        }
     else{
         window.alert(enemy.name + " still has " + enemy.health + " health left. ");
     }
+}else {
     var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
      playerInfo.health = Math.max(0, playerInfo.health - damage);
@@ -44,12 +54,18 @@ console.log(
  if (playerInfo.health <= 0) {
      window.alert(playerInfo.name + " has died! ");
      break;
- }
- else {
+ }else {
      window.alert(playerInfo.name + " still has " +  playerInfo.health  + " health left. ");
    }
+}
+ // switch turn order for next round
+ isPlayerTurn = !isPlayerTurn;
+ 
  }
 };
+
+
+
 
 // function for generating random numeric values
 var randomNumber = function(min, max) {
