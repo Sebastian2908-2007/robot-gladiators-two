@@ -4,25 +4,10 @@ var fight = function(enemy) {
   
     while(playerInfo.health > 0 && enemy.health > 0) { 
     // Alert players they are starting a round
-   
-
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP to choose.");
-    
-    if (promptFight === "skip" || promptFight === "SKIP") {
-        var confirmSkip = window.confirm("Are you sure you would like to quit?");
-      
-        // if yes (true), leave fight
-      if(confirmSkip) {
-          window.alert(playerInfo.name + " has decided to skip this fight. Bye Bye! ");
-          // subtract money from playerMoney for skipping
-          playerInfo.money = Math.max(0, playerInfo.money - 10)
-         // console.log( "playerMoney",playerMoney);
-          break;
-      }
-      
-    }
-
-  
+   if(fightOrSkip()) {
+       // if true , leave fight by breaking loop
+       break;
+   }
        
     // generate random damage value based on a players attack power
 var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
@@ -162,6 +147,31 @@ var getPlayerName = function() {
 
     console.log("your robots name is " + name);
     return name;
+}
+
+var fightOrSkip = function() {
+
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP to choose.");
+      promptFight = promptFight.toLowerCase();
+  if(promptFight === "" || promptFight === null) {
+      window.alert("You need to provide a valid answer! please try again. ");
+      return fightOrSkip();
+  }
+
+    if (promptFight === "skip") {
+        var confirmSkip = window.confirm("Are you sure you would like to quit?");
+      
+        // if yes (true), leave fight
+      if(confirmSkip) {
+          window.alert(playerInfo.name + " has decided to skip this fight. Bye Bye! ");
+          // subtract money from playerMoney for skipping
+          playerInfo.money = Math.max(0, playerInfo.money - 10)
+         // console.log( "playerMoney",playerMoney);
+        return true;
+      }
+      
+    }
+return false;
 }
 
 var playerInfo = {
