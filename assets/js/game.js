@@ -2,7 +2,7 @@
 
 var fight = function(enemy) {
     // keep track of who goes first
-    debugger;
+   
     var isPlayerTurn = true;
     if (Math.random() > 0.5) {
         isPlayerTurn = false;
@@ -105,24 +105,33 @@ var startGame = function() {
     }
    
   }
-  //plsy again
+  //play again
   endGame();
 };
 
 var endGame = function() {
-  // if player is still alive
-  if (playerInfo.health > 0) {
-      window.alert("Great job, you've survived the game ! You now have a score of" + playerInfo.money + " . ");
-  }else {
-      window.alert("you've lost your robot in battle.")
-  }
-  var playAgainConfirm = window.confirm("Would you like to play again?");
+  window.alert("The game has now ended. Let's see how you did!");
 
-  if(playAgainConfirm) {
-      // restart the game
+  // check localStorage for high score, if it's not there use 0
+  var highScore = localStorage.getItem("highscore");
+  if(highScore === null) {
+      highScore =  0;
+  }
+  // if player has mire money than the high score, player has a new high score
+  if (playerInfo.money > highScore) {
+      localStorage.setItem("highscore" ,playerInfo.money);
+      localStorage.setItem("name", playerInfo.name);
+      alert(playerInfo.name + "  now has the high score of " + playerInfo.money);
+  }else {
+      alert(playerInfo.name + " did not beat the highscore of " + highScore + " . Maybe next time! ");
+  }
+  // ask player if they would like to play again
+  var playAgainConfirm = window.confirm("Would you like to play again!");
+
+  if (playAgainConfirm) {
       startGame();
   }else {
-      window.alert("Thank you for  playing Robot Gladiators! Come back soon!");
+      window.alert("Thank you for playing Robot Gladiators Two! Y'all come back now yah hear!");
   }
 };
 
